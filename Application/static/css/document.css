@@ -1,0 +1,32 @@
+body{
+    /* background: url("wallpaper_2.png") ; */
+    /* background: linear-gradient(to right, #6d0b4e, #2b041f,#b12574,#6d0b4e, #200519, #0f010b); */
+    background-size: cover;
+    background: url("wp_10.jpg");
+
+    background-position: center center;
+}
+.document_list{
+    background: rgb(44, 42, 42);
+    margin: auto;
+    margin-top: 20px;
+    padding: 30px;
+    text-align: center;
+    width: 500px;
+    height: auto;
+    border-radius: 15px;
+
+
+    color: #d3b7d8;
+}
+.title{
+    color:  #03a9f4;
+    font-size: 24px;
+    font-family:cursive
+
+}
+.document_list span{
+    color: rgb(238, 139, 225);
+    font-family:monospace;
+    font-size: 16px;
+}

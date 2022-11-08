@@ -1,0 +1,19 @@
+--- Retrain_2nd_dataset.py
++++ Retrain_2nd_dataset.py
+@@ -2,6 +2,7 @@
+     
+     def __init__(self, input_size, hidden_size, num_layers, dropout, num_classes = 29, batch_first = True):
+         super(LSTM, self).__init__()
++        
+         self.input_size = input_size
+         
+         self.hidden_size = hidden_size
+@@ -21,7 +22,7 @@
+         c0 = torch.zeros(self.num_layers * 2, x.size(0), self.hidden_size).to(device)
+ #         print("the shape:",x.shape)
+         x = self.norm(x)
+-#         print("shape after norm", x.shape
++#         print("shape after norm", x.shape)
+         x = F.gelu(x)
+         
+         output, _ = self.lstm(x, (h0, c0))

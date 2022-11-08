@@ -1,0 +1,4 @@
+Start Epoch
+Start EpochEpoch : 0  | Loss : 2.74120291374771 Start EpochEpoch : 1  | Loss : 2.781134638279213 
+Epoch : 1  | Loss : 2.301399226146568 
+Epoch : 2  | Loss : 1.1077926827860058 Epoch : 1  | Loss : 2.197199967088896 

@@ -1,0 +1,22 @@
+--- Retrain_2nd_dataset.py
++++ Retrain_2nd_dataset.py
+@@ -15,19 +15,14 @@
+     def forward(self, x):
+         
+         residual = x 
+-
+         x = self.layerNorm_1(x)
+-  
+         x = F.gelu(x) # perform better than Relu
+         x = self.dropout_1(x)
+ #         print(x.shape)
+ #         print(x)
+-
+         x = self.conv_1(x)
+-
+         
+         x = self.layerNorm_2(x)
+-
+         x = F.gelu(x)
+         x = self.dropout_2(x)
+         x = self.conv_2(x)

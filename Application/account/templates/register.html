@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset = 'utf-8'>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Registration</title>
+    {%load static %}
+    <link rel = "stylesheet" href = "{% static 'register.css' %}">
+    <!-- <link rel = "stylesheet" href = "https://unpkg.com/mobi.css/dist/mobi.min.css"> -->
+    <style>
+        .errorlist{
+            color:red
+        }
+    </style>
+</head>
+<body>
+<div class="flex-center">
+    <div class="container">
+        <div class="flex-center">
+ 
+                
+                <h1>Join <span>Geass</span></h1>
+                <img src="{% static 'geass.jpeg' %}" alt="">
+                <form class = "form" action = "{% url 'register' %} " method="post">
+                    {%csrf_token%}
+                    
+                    {% for field in form %}
+                    <div></div>
+
+                    {{field.label_tag}}
+                    <div></div>
+                    <!-- {{ field.label_tag}} -->
+                    {{field}}
+                    {{field.errors}}
+                    {% if field.help_text%} 
+                        <!-- <p class="help text-small text-muted">{{ field.help_text|safe }}</p> -->
+                    {% endif %}
+                {% endfor %}
+                <div></div>
+                    <button type="submit" >Register</button>
+                    <input type = "hidden" name = "next" value = "{{ next }}"/>
+                    <div><a href="{% url 'login' %}">Already Member?</a></div>
+                    
+                    
+                </form>
+
+                </div>
+                </div>               
+</div>
+{% if messages %}
+    <script>
+        alert('Successfully Registered');
+    </script>
+{% endif %}
+</body>
+</html>
+

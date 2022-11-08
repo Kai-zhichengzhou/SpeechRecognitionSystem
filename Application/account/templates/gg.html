@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    {% load static %}
+    <script src = " {% static 'jquery-3.6.0.min.js' %}"></script>
+    <script type = "text/javascript" >
+        $(document).ready(function() { //等待{}中的所有元素加载完成之后绑定事件
+            $("button").click(function(){  //$("button")是jquery的选择器
+                $.ajax({            //调用ajax指令，jquery ajax里面用到了两个参数，url和success
+                    url: "{% url 'asktime' %}",     //ajax指令，向服务器发送了一个url，地址是自爱django里定义的name = 'asktime'的url，实际对应了一个试图函数
+
+                    success: function(result){$ ("#ask").html(result);}
+                    //为选中的div元素绑定一个更改文本(html)的事件，将div内元素文本改为result
+                    //服务器成功像影后绑定的事件
+
+                });
+            });   //给按钮的点击效果，绑定一个事件
+
+        });
+    </script>
+</head>
+<body>
+    <div id = "ask"><h2>现在几点了？</h2></div>
+    <button>询问</button>
+</body>
+</html>

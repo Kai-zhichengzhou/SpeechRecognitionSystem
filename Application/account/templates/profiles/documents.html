@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <title>Geass Documents</title>
+        {% load static %}
+        <link rel="stylesheet" href="{%static 'document.css' %}">
+    </head>
+    {% for doc in documents%}
+        <div class = "document_list">
+            <p class = "title">{{doc.text_title}}</p>
+            <p><span>Tag  {{doc.text_tag}} </span></p>
+            <p><span>Level  {{doc.text_level}} </span></p>
+            <p>{{doc.text_content}}</p>
+        </div>
+
+
+    
+    {% endfor %}
+</html>

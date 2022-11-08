@@ -1,0 +1,209 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+
+    <title>Geass Speech</title>
+    <!-- 引入字体图标 -->
+    {%load static %}
+    <!-- <link rel="stylesheet" href="fonts/font.css"> -->
+    <link rel="stylesheet" href="{%static 'profile.css' %}">
+    <script src = " {% static 'jquery-3.6.0.min.js' %}"></script>
+
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="left-box">
+            <img src="{% static 'geass.jpeg' %}" alt="">
+            <ul>
+                
+                {%if profile %}
+                <li class="item active">
+                    <i class="icon icon-file"></i>
+                    {{profile.username}}
+                </li>
+                <li class="item">
+                    <i class="icon icon-album"></i>
+                    {{profile.first_name}} {{profile.last_name}}
+                </li>
+                <li class="item">
+                    <i class="icon icon-like"></i>
+                    {{profile.email}}
+                </li>
+                <li class="item">
+                    <i class="icon icon-vault"></i>
+                    {{profile.phone}}
+                </li>
+
+                <li class="item">
+                    <i class="icon icon-trash"></i>
+                    {% if profile.membership == 'B' %}
+                    Bronze
+                    {%else %}
+                    Platitum
+                    {%endif%}
+                </li>
+                <li class="item">
+                    <i class="icon icon-favorite"></i>
+                    {{profile.last_login}}
+                </li>
+                <hr>
+                <li class="item">
+                    <a href = "{% url 'documents' %}" class = "hyperlink" style = "font-size:16px;color: #d3b7d8;">Your Speech Documents</a>
+
+                </li>
+                
+                {%endif%}
+            </ul>
+            <div class="sys-info">
+                <h1><span>Geass </span>Speech</h1>
+            </div>
+        </div>
+        <div class="right-box">
+            <!-- <div class="top">
+                <span class="current-tag">文件</span>
+                <div class="btn">
+                    <i class="icon icon-search"></i>
+                </div>
+                <div class="btn">
+                    <i class="icon icon-add"></i>
+                </div>
+            </div> -->
+            
+            <!-- <div class="middle">Geass
+            </div> -->
+            <h1><Span class = "app_span">Geass </Span>Speech</h1>
+            <form action = "{% url 'profile' %}" method="post">
+                {% csrf_token %}
+               <div class = "input_1"> 
+                <label for="id_title">Title</label>
+                {{ form.title.errors}}
+                <input type = "text" class = "title" name = "title"value = "{{form.title.values}}">
+                <label for = "id_tag">Document Tag</label>
+                {{ form.tag.errors }}
+                <select id = "id_tag" class = "tag" name = "tag" value = "{{form.tag.choices}}">
+                    <option value = "A">Articles</option>
+                    <option value = "E">Entertainment</option>
+                    <option value = "J">Journal</option>
+                    <option value = "N">Novel</option>
+                    <option value = "S">Study</option> 
+                </select> 
+                <label for = "id_level">Document Level</label>
+                {{ form.tag.errors }}
+                <select id = "id_level" class = "level" name = "level" value = "{{form.level.choices}}">
+                    <option value = "H">High</option>
+                    <option value = "M">Medium</option>
+                    <option value = "L">Low</option>
+                </select> 
+                </div>
+                <div class = "input_2">
+                <!-- <label for = "id_tag">Document Tag</label>
+                {{ form.tag.errors }}
+                <select id = "id_tag" class = "tag" name = "tag" value = "{{form.tag.choices}}">
+                    <option value = "A">Articles</option>
+                    <option value = "E">Entertainment</option>
+                    <option value = "J">Journal</option>
+                    <option value = "N">Novel</option>
+                    <option value = "S">Study</option> 
+                </select>  -->
+                <!-- {{form.tag}} -->
+                </div>
+                <div class = "input_3">
+                    <!-- <label for = "id_level">Document Level</label>
+                    {{ form.tag.errors }}
+                    <select id = "id_level" class = "level" name = "level" value = "{{form.level.choices}}">
+                        <option value = "H">High</option>
+                        <option value = "M">Medium</option>
+                        <option value = "L">Low</option>
+                    </select>  -->
+
+                    </div>
+                <div class = "input_4">
+                    <!-- <label for = "id_documents">Document</label> -->
+                    <!-- {{ form.documents.errors}} -->
+                    <br>
+                    <textarea rows = "30" name = "documents" class = "documents" required id = "id_documents" value = "{{form.documents.values}}"></textarea>
+                    <div class = "submit">
+                        <input type = "submit" class = "submit_form" value = "Create">
+                    </div>
+                    
+                </div>
+                <!-- <input type = "submit" value = "Submit"> -->
+                <!-- {{form}} --> 
+                
+            </form>
+
+            <!-- <br>
+            <textarea rows = "30" name = "messgae" class = "message"></textarea> -->
+    
+            <!-- <input id = "document" type = "text" name = "document" class = "message"> -->
+            <div class = "myspeech" id = "myspeech">This is where the text is shown.
+            </div>
+            
+            <button type = "submit" onclick="record()">Go</button>
+            
+            <div class="handler"></div>
+        </div>
+    </div>
+    <script tyoe = "text/javascript">
+
+        $(document).ready(function() { //等待{}中的所有元素加载完成之后绑定事件
+            $("button").click(function(){  //$("button")是jquery的选择器
+                $.ajax({            //调用ajax指令，jquery ajax里面用到了两个参数，url和success
+                    url: "{% url 'speech' %}",     //ajax指令，向服务器发送了一个url，地址是自爱django里定义的name = 'asktime'的url，实际对应了一个试图函数
+
+                    success: function(result){$ ("#myspeech").html(result);}
+                    //为选中的div元素绑定一个更改文本(html)的事件，将div内元素文本改为result
+                    //服务器成功像影后绑定的事件
+
+                });
+            });   //给按钮的点击效果，绑定一个事件
+
+        });
+
+    let items=document.querySelectorAll('.item');
+    let current_tag=document.querySelector('.current-tag');
+    let handler=document.querySelector('.handler');
+    let left_box=document.querySelector('.left-box');
+    // $(document).ready(function(){
+    //     $("button").click(function(){
+    //         $.ajax({
+    //             url: "{% url 'speech' %} ",
+    //             success:function(result){$ ("#myspeech").html(result);}
+    //         });
+    //     });
+    // });
+
+// // 设置选中项的样式
+//     // function setActive(){
+//     //     items.forEach((item)=>{
+//     //         item.classList.remove('active');
+//     //     })
+//     //     this.classList.add('active');
+//     //     current_tag.innerText=this.innerText;
+//     // }
+//     // items.forEach((item)=>{
+//     //     item.addEventListener('click',setActive);
+//     // })
+
+    handler.addEventListener('click',function(){
+        if(!this.classList.contains('close')){
+            left_box.style.width=0;
+            this.classList.add('close');
+        }else{
+            left_box.style.width=250+'px';
+            this.classList.remove('close');
+        }
+
+    });
+
+    </script>
+</body>
+
+</html>
